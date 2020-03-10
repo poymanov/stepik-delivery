@@ -21,3 +21,14 @@ class Meal(db.Model):
     picture = db.Column(db.Text, nullable=False)
     categoryId = db.Column(db.Integer, db.ForeignKey('categories.id'))
     category = db.relationship('Category')
+
+
+class User(db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False, unique=True)
+    password = db.Column(db.String(255), nullable=False)
+    address = db.Column(db.Text, nullable=False)
+    role = db.Column(db.String(32), nullable=False)

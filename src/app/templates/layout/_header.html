@@ -1,11 +1,20 @@
 <header class="container mt-3">
     <nav class="py-1 navbar navbar-dark bg-dark">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <p class=" h5 my-2 text-white bg-dark">Stepik Delivery</p>
-      </ul>
-      <p class="my-2 text-white bg-dark ">Корзина (2 блюда 455 руб.)</p>
-      <img class="ml-2" src="{{ url_for('static', filename='smile.png') }}" alt="" width="24" height="25">
-      <a href="#" class="btn btn-warning btn-sm ml-4">Войти</a>
-      <a href="#" class="btn btn-light btn-sm ml-4 d-none">Выйти</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <p class=" h5 my-2 text-white bg-dark"><a href="/" class="text-white text-decoration-none">Stepik Delivery</a></p>
+        </ul>
+        <p class="my-2 bg-dark"><a href="/cart" class="text-white">Корзина (2 блюда 455 руб.)</a></p>
+        <img class="ml-2" src="{{ url_for('static', filename='smile.png') }}" width="24" height="25">
+
+        {% if session['user'] %}
+            <a href="/account" class="btn btn-warning btn-sm ml-4">Личный кабинет</a>
+            <form method="post" action="/logout">
+                <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+                <button class="btn btn-light btn-sm ml-4">Выйти</button>
+            </form>
+        {% else %}
+            <a href="/login" class="btn btn-warning btn-sm ml-4">Войти</a>
+            <a href="/register" class="btn btn-warning btn-sm ml-4">Регистрация</a>
+        {% endif %}
     </nav>
 </header>
