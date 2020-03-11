@@ -11,11 +11,17 @@
             {% for meal in category.meals %}
             <div class="col-12 col-md-4">
                 <div class="card mb-3">
-                    <img src="{{ url_for('static', filename='meals/' + meal.picture) }}" width="300" height="200" class="card-img-top" alt="{{ meal.title }}">
+                    <img src="{{ url_for('static', filename='meals/' + meal.picture) }}" width="300" height="200"
+                         class="card-img-top" alt="{{ meal.title }}">
                     <div class="card-body">
                         <h4 class="h5 card-title">{{ meal.title }}</h4>
                         <p class="card-text">{{ meal.description }}</p>
-                        <a href="/addtocart1/" class="btn btn-danger">В корзину</a>
+
+                        <form action="/add-to-cart" method="post">
+                            <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+                            <input name="id" type="hidden" value="{{ meal.id }}">
+                            <button class="btn btn-danger">В корзину</button>
+                        </form>
                     </div>
                 </div>
             </div>
