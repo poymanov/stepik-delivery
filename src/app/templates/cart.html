@@ -15,63 +15,20 @@
     <div class="row mt-5">
         <div class="col-4">
             <h4 class="">Ваши данные</h4>
-            <div class=" md-4 order-md-1">
-                <div class="mt-3 mb-3">
-                    <label for="name">Ваше имя</label>
-                    <input type="text" class="font-weight-bold form-control" id="name">
-                </div>
-            </div>
-            <div class=" md-4 order-md-1">
-                <div class="mt-3 mb-3">
-                    <label for="name">Адрес</label>
-                    <input type="text" class="font-weight-bold form-control" id="name">
-                </div>
-            </div>
-            <div class="md-4 form-label-group">
-                <label for="name">Электропочта</label>
-                <input type="email" id="inputEmail" class="form-control" required autofocus>
-                <label for="inputEmail"></label>
-            </div>
-            <div class=" md-4 order-md-1">
-                <div class="mt-3 mb-3">
-                    <label for="name">Телефон</label>
-                    <input type="text" class="font-weight-bold form-control" id="name">
-                </div>
-            </div>
-            <button type="submit" class=" mt-3 mb-5 btn btn-danger">Оформить заказ</button>
+            {% if session['user'] %}
+                {% if session['cart']['qty'] > 0 %}
+                    {% with form=form %}
+                        {% include('layout/_cart_order.html') %}
+                    {% endwith %}
+                {% endif %}
+            {% else %}
+                <a href="/login" class="btn btn-warning btn-sm">Войти</a>
+                <a href="/register" class="btn btn-warning btn-sm ml-4">Регистрация</a>
+            {% endif %}
         </div>
         <div class="col-1"></div>
         <div class="col-7">
-            {% if session['cart'] and session['cart']['qty'] > 0 %}
-            <h4 class="mb-3 col-7 mb-5">{{ session['cart']['qty_title'] }} в корзине</h4>
-            {% else %}
-            <h4 class="mb-3 col-7 mb-5">Корзина пуста</h4>
-            {% endif %}
-            {% if session['cart']['items'] %}
-            <table class="table">
-                <tbody>
-                {% for id, item in session['cart']['items'].items() %}
-                <tr>
-                    <th scope="row">{{ item.title }}</th>
-                    <td></td>
-                    <td>{{ item.qty }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>
-                        <form method="post" action="/delete-from-cart" class="d-inline">
-                            <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}">
-                            <input name="id" type="hidden" value="{{ id }}">
-                            <button class="btn btn-link text-danger p-0">Удалить</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {% endif %}
-            <hr>
-            {% if session['cart'] and session['cart']['qty'] > 0 %}
-            <p class="display-4 my-2 ">{{ session['cart']['total'] }} руб</p>
-            {% endif %}
+            {% include('layout/_cart_items.html') %}
         </div>
     </div>
 </main>

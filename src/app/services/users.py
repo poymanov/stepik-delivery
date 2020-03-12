@@ -17,10 +17,18 @@ def register(form):
 def login(form):
     user = db.session.query(User).filter(User.email == form.email.data).first()
     if user and check_password_hash(user.password, form.password.data):
-        session['user'] = {'id': user.id, 'role': user.role}
+        session['user'] = {'id': user.id, 'role': user.role, 'email': user.email, 'name': user.name,
+                           'address': user.address}
         return True
     else:
         return False
+
+
+def get_auth_user():
+    if session.get('user'):
+        return session['user']
+    else:
+        return None
 
 
 def logout():

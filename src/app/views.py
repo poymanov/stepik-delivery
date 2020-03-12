@@ -3,7 +3,8 @@ from app import app
 import app.services.categories as categories_service
 import app.services.users as users_service
 import app.services.cart as cart_service
-from app.forms import RegisterForm, LoginForm
+import app.services.orders as order_service
+from app.forms import RegisterForm, LoginForm, OrderForm
 from functools import wraps
 
 
@@ -68,12 +69,24 @@ def logout():
 @app.route('/account', methods=['GET'])
 @login_required
 def account():
-    return render_template('account.html')
+    user = users_service.get_auth_user()
+    orders = order_service.get_order(user.get('id'))
+    return render_template('account.html', orders=orders)
 
 
-@app.route('/cart', methods=['GET'])
+@app.route('/cart', methods=['GET', 'POST'])
 def cart():
-    return render_template('cart.html', cart=cart_service.get_cart())
+    form = OrderForm()
+    if form.validate_on_submit():
+        order_service.create_order(form)
+        return redirect('/')
+    else:
+        if request.method == 'GET' and session.get('user'):
+            form.name.default = session['user']['name']
+            form.email.default = session['user']['email']
+            form.address.default = session['user']['address']
+            form.process()
+        return render_template('cart.html', form=form, cart=cart_service.get_cart())
 
 
 @app.route('/add-to-cart', methods=['POST'])

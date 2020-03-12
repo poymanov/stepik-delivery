@@ -5,7 +5,7 @@ import plural_ru
 
 def get_cart():
     if session.get('cart') is None:
-        session['cart'] = {'total': 0, 'qty': 0, 'items': {}, 'qty_title': ''}
+        session['cart'] = create_empty_cart()
 
     return session['cart']
 
@@ -40,6 +40,14 @@ def delete_from_cart(meal_id):
         qty = int(qty) - 1
         items.pop(item_key)
         set_data_to_cart(qty, total, items)
+
+
+def clear_cart():
+    session['cart'] = create_empty_cart()
+
+
+def create_empty_cart():
+    return {'total': 0, 'qty': 0, 'items': {}, 'qty_title': ''}
 
 
 def set_data_to_cart(qty, total, items):
