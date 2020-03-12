@@ -79,7 +79,7 @@ def cart():
     form = OrderForm()
     if form.validate_on_submit():
         order_service.create_order(form)
-        return redirect('/')
+        return redirect('/ordered')
     else:
         if request.method == 'GET' and session.get('user'):
             form.name.default = session['user']['name']
@@ -87,6 +87,12 @@ def cart():
             form.address.default = session['user']['address']
             form.process()
         return render_template('cart.html', form=form, cart=cart_service.get_cart())
+
+
+@login_required
+@app.route('/ordered', methods=['GET'])
+def ordered():
+    return render_template('ordered.html')
 
 
 @app.route('/add-to-cart', methods=['POST'])

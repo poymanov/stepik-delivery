@@ -1,0 +1,19 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <div class="col-8 col-lg-4 offset-2 offset-lg-4">
+            <form class="form-signin pt-5 mt-5">
+                <div class="text-center">
+                    <img class="mb-4"
+                         src="{{ url_for('static', filename='done.png') }}"
+                         alt="" width="58" height="58">
+                    <h1 class="h3 mb-3 ">Заявка отправлена</h1>
+                    <p class="mb-4">Скоро мы вам перезвоним</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
