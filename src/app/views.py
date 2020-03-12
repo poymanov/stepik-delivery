@@ -52,7 +52,7 @@ def login():
 
     if form.validate_on_submit():
         if users_service.login(form):
-            return redirect('/')
+            return redirect('/account')
         else:
             form.email.errors.append('Неверный email или пароль')
             return render_template('login.html', form=form)
@@ -89,8 +89,8 @@ def cart():
         return render_template('cart.html', form=form, cart=cart_service.get_cart())
 
 
-@login_required
 @app.route('/ordered', methods=['GET'])
+@login_required
 def ordered():
     return render_template('ordered.html')
 
