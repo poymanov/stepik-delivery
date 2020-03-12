@@ -63,7 +63,7 @@ def login():
 @app.route('/logout', methods=['POST'])
 def logout():
     users_service.logout()
-    return redirect('/')
+    return redirect('/login')
 
 
 @app.route('/account', methods=['GET'])
