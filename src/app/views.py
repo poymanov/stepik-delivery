@@ -30,7 +30,7 @@ def login_required(f):
 
 @app.route('/')
 def index():
-    return render_template('index.html', categories=categories_service.get_categories())
+    return render_template('index.html', categories=categories_service.get_categories_with_random_meals(3))
 
 
 @app.route('/register', methods=['GET', 'POST'])
