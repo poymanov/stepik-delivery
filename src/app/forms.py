@@ -8,7 +8,7 @@ class RegisterForm(FlaskForm):
     email = StringField('Электропочта', [InputRequired(), Length(min=5, message='Не менее 5 символов'),
                                          Email('Неверный формат электронного адреса')])
     password = PasswordField('Пароль',
-                             [InputRequired(), Length(min=8, message='Пароль должен быть не менее 8 символов')])
+                             [InputRequired(), Length(min=5, message='Пароль должен быть не менее 5 символов')])
     password_confirm = PasswordField("Повторение пароля",
                                      [InputRequired(), EqualTo('password', message='Пароли не совпадают')])
     address = TextAreaField('Адрес', [InputRequired(), Length(min=5, message='Не менее 5 символов')])
@@ -18,7 +18,7 @@ class LoginForm(FlaskForm):
     email = StringField('Электропочта', [InputRequired(), Length(min=5, message='Не менее 5 символов'),
                                          Email('Неверный формат электронного адреса')])
     password = PasswordField('Пароль',
-                             [InputRequired(), Length(min=8, message='Пароль должен быть не менее 8 символов')])
+                             [InputRequired(), Length(min=5, message='Пароль должен быть не менее 5 символов')])
 
 
 class OrderForm(FlaskForm):

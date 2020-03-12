@@ -60,6 +60,7 @@ class Order(db.Model):
     address = db.Column(db.Text, nullable=False)
     phone = db.Column(db.String(255), nullable=False)
     status = db.Column(db.Enum(OrderStatus), nullable=False)
+    total = db.Column(db.Float, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User')
     meals = db.relationship(
