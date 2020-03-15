@@ -6,7 +6,7 @@
 {% if session['cart']['items'] %}
 <table class="table">
     <tbody>
-    {% for id, item in session['cart']['items'].items() %}
+    {% for item_id, item in session['cart']['items'].items() %}
     <tr>
         <th scope="row">{{ item.title }}</th>
         <td></td>
@@ -15,7 +15,7 @@
         <td>
             <form method="post" action="/delete-from-cart" class="d-inline">
                 <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}">
-                <input name="id" type="hidden" value="{{ id }}">
+                <input name="id" type="hidden" value="{{ item_id }}">
                 <button class="btn btn-link text-danger p-0">Удалить</button>
             </form>
         </td>
