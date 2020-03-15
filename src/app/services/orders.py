@@ -8,7 +8,7 @@ import datetime
 def create_order(form):
     user = user_service.get_auth_user()
     order = Order()
-    order.userId = user.get('id')
+    order.user_id = user.get('id')
     order.status = OrderStatus.NEW
     order.date = datetime.datetime.utcnow()
     form.populate_obj(order)
@@ -30,7 +30,7 @@ def create_order(form):
 def get_order(user_id):
     orders_data = []
 
-    orders = db.session.query(Order).filter(Order.userId == user_id).order_by(Order.date.desc()).all()
+    orders = db.session.query(Order).filter(Order.user_id == user_id).order_by(Order.date.desc()).all()
 
     for order in orders:
         order_item = {}

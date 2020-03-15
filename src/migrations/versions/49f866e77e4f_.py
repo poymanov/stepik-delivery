@@ -27,8 +27,8 @@ def upgrade():
     sa.Column('phone', sa.String(length=255), nullable=False),
     sa.Column('status', sa.Enum('NEW', 'PROCESSED', 'COMPLETED', name='orderstatus'), nullable=False),
     sa.Column('total', sa.Float(), nullable=False),
-    sa.Column('userId', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('orders_meals',

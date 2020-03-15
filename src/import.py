@@ -19,6 +19,6 @@ session.commit()
 for meals_item in meals_data:
     session.add(Meal(id=meals_item.get('id'), title=meals_item.get('title'), price=meals_item.get('price'),
                      description=meals_item.get('description'), picture=meals_item.get('picture'),
-                     categoryId=meals_item.get('category_id')))
+                     category_id=meals_item.get('category_id')))
 
 session.commit()

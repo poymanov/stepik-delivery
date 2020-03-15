@@ -25,7 +25,7 @@ class Meal(db.Model):
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
     picture = db.Column(db.Text, nullable=False)
-    categoryId = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     category = db.relationship('Category')
     orders = db.relationship(
         "Order", secondary=orders_meals_association, back_populates='meals'
@@ -61,7 +61,7 @@ class Order(db.Model):
     phone = db.Column(db.String(255), nullable=False)
     status = db.Column(db.Enum(OrderStatus), nullable=False)
     total = db.Column(db.Float, nullable=False)
-    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User')
     meals = db.relationship(
         "Meal", secondary=orders_meals_association, back_populates='orders'

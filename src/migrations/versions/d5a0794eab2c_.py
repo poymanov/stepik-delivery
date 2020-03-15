@@ -30,8 +30,8 @@ def upgrade():
     sa.Column('price', sa.Float(), nullable=False),
     sa.Column('description', sa.Text(), nullable=False),
     sa.Column('picture', sa.Text(), nullable=False),
-    sa.Column('categoryId', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['categoryId'], ['categories.id'], ),
+    sa.Column('category_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('title')
     )
